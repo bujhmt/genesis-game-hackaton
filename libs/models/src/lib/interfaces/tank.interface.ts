@@ -1,12 +1,8 @@
-import {Position} from "./position.interface";
+import {Position} from './position.interface';
+import {Direction} from '../enums';
 
 export interface Tank {
-  id:string,
+  id: string,
   position: Position
-  direction: string;
-
-  shoot(x: number, y: number): void;
-
-  move(direction: string): void;
-
+  direction: Direction;
 }

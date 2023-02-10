@@ -5,3 +5,11 @@
   border           : 3px solid black;
   position         : relative;
 }
+
+.tank {
+  position   : absolute;
+  width      : 20px;
+  height     : 20px;
+  background : white;
+  border-top: 5px solid yellow;
+}
