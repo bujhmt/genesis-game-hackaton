@@ -24,12 +24,7 @@ export class TanksState {
   setTank(ctx: StateContext<TanksStateModel>, {tank}: SetTank) {
     const {tanksMap} = ctx.getState();
 
-    ctx.patchState({
-      tanksMap: {
-        ...tanksMap,
-        [tank.id]: tank,
-      }
-    });
+    ctx.setState({tanksMap: {...tanksMap, [tank.id]: tank}});
   }
 
   @Action(RemoveTank)
@@ -38,17 +33,13 @@ export class TanksState {
 
     delete tanksMap[tank.id];
 
-    ctx.patchState(tanksMap);
+    ctx.setState({tanksMap: {...tanksMap, [tank.id]: tank}});
   }
 
   @Action(MoveForward)
   moveForward(ctx: StateContext<TanksStateModel>, {id}: MoveForward) {
     const {tanksMap} = ctx.getState();
-    const tank = tanksMap[id];
-
-    if (!tank) {
-      return;
-    }
+    const tank = Object.assign({}, tanksMap[id]);
 
     if (tank.direction === Direction.BOTTOM) {
       tank.position.y = tank.position.y + 1;
@@ -59,24 +50,20 @@ export class TanksState {
     }
 
     if (tank.direction === Direction.LEFT) {
-      tank.position.y = tank.position.x - 1;
+      tank.position.x = tank.position.x - 1;
     }
 
     if (tank.direction === Direction.RIGHT) {
-      tank.position.y = tank.position.x + 1;
+      tank.position.x = tank.position.x + 1;
     }
 
-    ctx.patchState({...tanksMap, [id]: tank});
+    ctx.setState({tanksMap: {...tanksMap, [tank.id]: tank}});
   }
 
   @Action(MoveBack)
   moveBack(ctx: StateContext<TanksStateModel>, {id}: MoveBack) {
     const {tanksMap} = ctx.getState();
-    const tank = tanksMap[id];
-
-    if (!tank) {
-      return;
-    }
+    const tank = Object.assign({}, tanksMap[id]);
 
     if (tank.direction === Direction.BOTTOM) {
       tank.position.y = tank.position.y - 1;
@@ -87,61 +74,48 @@ export class TanksState {
     }
 
     if (tank.direction === Direction.LEFT) {
-      tank.position.y = tank.position.x + 1;
+      tank.position.x = tank.position.x + 1;
     }
 
     if (tank.direction === Direction.RIGHT) {
-      tank.position.y = tank.position.x - 1;
+      tank.position.x = tank.position.x - 1;
     }
 
-    ctx.patchState({...tanksMap, [id]: tank});
+    ctx.setState({tanksMap: {...tanksMap, [tank.id]: tank}});
   }
 
   @Action(TurnRight)
   turnRight(ctx: StateContext<TanksStateModel>, {id}: TurnRight) {
     const {tanksMap} = ctx.getState();
-    const tank = tanksMap[id];
+    const tank = Object.assign({}, tanksMap[id]);
 
-    if (tank.direction === Direction.BOTTOM) {
-      tank.direction = Direction.LEFT;
+
+    const changeDirectionMap: Record<Direction, Direction> = {
+      [Direction.RIGHT]: Direction.BOTTOM,
+      [Direction.LEFT]: Direction.TOP,
+      [Direction.TOP]: Direction.RIGHT,
+      [Direction.BOTTOM]: Direction.LEFT,
     }
 
-    if (tank.direction === Direction.TOP) {
-      tank.direction = Direction.RIGHT;
-    }
+    tank.direction = changeDirectionMap[tank.direction];
 
-    if (tank.direction === Direction.LEFT) {
-      tank.direction = Direction.BOTTOM;
-    }
-
-    if (tank.direction === Direction.RIGHT) {
-      tank.direction = Direction.TOP;
-    }
-
-    ctx.patchState({...tanksMap, [id]: tank});
+    ctx.setState({tanksMap: {...tanksMap, [tank.id]: tank}});
   }
 
   @Action(TurnLeft)
   turnLeft(ctx: StateContext<TanksStateModel>, {id}: TurnLeft) {
     const {tanksMap} = ctx.getState();
-    const tank = tanksMap[id];
+    const tank = Object.assign({}, tanksMap[id]);
 
-    if (tank.direction === Direction.BOTTOM) {
-      tank.direction = Direction.RIGHT;
+    const changeDirectionMap: Record<Direction, Direction> = {
+      [Direction.RIGHT]: Direction.TOP,
+      [Direction.LEFT]: Direction.BOTTOM,
+      [Direction.TOP]: Direction.LEFT,
+      [Direction.BOTTOM]: Direction.RIGHT,
     }
 
-    if (tank.direction === Direction.TOP) {
-      tank.direction = Direction.LEFT;
-    }
+    tank.direction = changeDirectionMap[tank.direction];
 
-    if (tank.direction === Direction.LEFT) {
-      tank.direction = Direction.TOP;
-    }
-
-    if (tank.direction === Direction.RIGHT) {
-      tank.direction = Direction.BOTTOM;
-    }
-
-    ctx.patchState({...tanksMap, [id]: tank});
+    ctx.setState({tanksMap: {...tanksMap, [tank.id]: tank}});
   }
 }

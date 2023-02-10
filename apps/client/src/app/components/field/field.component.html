@@ -2,8 +2,8 @@
   <div
     *ngFor="let tank of tanks$ | async"
     [ngStyle]="{
-      'top.px': tank.position.x * 10,
-      'left.px': tank.position.y * 10,
+      'left.px': tank.position.x * 10,
+      'top.px': tank.position.y * 10,
       'transform': 'rotate(' + rotationsMap[tank.direction] + 'deg)'
     }"
     class="tank"

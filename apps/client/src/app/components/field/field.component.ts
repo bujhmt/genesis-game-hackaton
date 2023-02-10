@@ -13,7 +13,7 @@ export class FieldComponent {
   public rotationsMap: Record<Direction, number> = {
     [Direction.TOP]: 0,
     [Direction.BOTTOM]: 180,
-    [Direction.LEFT]: 90,
+    [Direction.LEFT]: -90,
     [Direction.RIGHT]: 90,
   }
 
