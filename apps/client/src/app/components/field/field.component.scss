@@ -11,11 +11,25 @@
 }
 
 .tank {
-  position   : absolute;
-  width      : 20px;
-  height     : 20px;
-  background : white;
-  border-top : 5px solid yellow;
+  position        : absolute;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  width           : 20px;
+  height          : 20px;
+
+  &:after {
+    content          : '';
+    display          : flex;
+    position         : absolute;
+    background-image : url("/assets/img/battle-tank-2.png");
+    height           : 43px;
+    width            : 40px;
+    background-size  : cover;
+    align-content    : center;
+    transform        : scale(4);
+  }
+
 }
 
 .seconds {
