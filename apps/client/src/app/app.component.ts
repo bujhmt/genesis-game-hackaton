@@ -1,6 +1,7 @@
-import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {MoveBack, MoveForward, TurnLeft, TurnRight} from './state/tanks.actions';
+import {MoveBack, MoveForward, SetTank, TurnLeft, TurnRight} from './state/tanks.actions';
+import {Direction} from "@game/models";
 
 @Component({
   selector: 'game-root',
@@ -8,7 +9,7 @@ import {MoveBack, MoveForward, TurnLeft, TurnRight} from './state/tanks.actions'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  private clientId = 'client';
+  clientId = 'client';
 
   constructor(
     private readonly store: Store,
@@ -16,25 +17,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.key)
-    if (event.key === 'w') {
-      this.store.dispatch(new MoveForward(this.clientId))
-    }
-
-    if (event.key === 's') {
-      this.store.dispatch(new MoveBack(this.clientId))
-    }
-
-    if (event.key === 'd') {
-      this.store.dispatch(new TurnRight(this.clientId))
-    }
-
-    if (event.key === 'a') {
-      this.store.dispatch(new TurnLeft(this.clientId))
-    }
+    this.store.dispatch(new SetTank({
+      id: this.clientId,
+      position: {x:20,y:20},
+      direction: Direction.RIGHT
+    }))
   }
 }

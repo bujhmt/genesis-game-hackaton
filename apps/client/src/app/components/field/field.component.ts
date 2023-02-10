@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy} from '@angular/core';
 import {Direction, Tank} from '@game/models';
 import {Select} from '@ngxs/store';
 import {TanksState} from '../../state/tanks.state';
