@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "client": "apps/client",
-    "models": "libs/models"
+    "events": "libs/events",
+    "models": "libs/models",
+    "server": "apps/server"
   }
 }
