@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@game/events": ["libs/events/src/index.ts"],
       "@game/models": ["libs/models/src/index.ts"]
     }
   },

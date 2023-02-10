@@ -1,6 +1,10 @@
-import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {MoveBack, MoveForward, TurnLeft, TurnRight} from './state/tanks.actions';
+import {SetTank} from './state/tanks.actions';
+import {Events} from '@game/events';
+import {Direction, Tank} from '@game/models';
+import {io} from 'socket.io-client';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'game-root',
@@ -8,33 +12,35 @@ import {MoveBack, MoveForward, TurnLeft, TurnRight} from './state/tanks.actions'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  private clientId = 'client';
-
   constructor(
     private readonly store: Store,
   ) {
   }
 
   ngOnInit() {
-  }
+    const socket = io(environment.baseUrl)
 
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event.key)
-    if (event.key === 'w') {
-      this.store.dispatch(new MoveForward(this.clientId))
-    }
+    socket.on('connect', () => {
+      console.log('Connected to server!');
 
-    if (event.key === 's') {
-      this.store.dispatch(new MoveBack(this.clientId))
-    }
+      const x = Math.ceil(Math.random() * 80 + 10);
+      const y = Math.ceil(Math.random() * 40 + 10);
 
-    if (event.key === 'd') {
-      this.store.dispatch(new TurnRight(this.clientId))
-    }
+      const position = {
+        x: x - (x % 20),
+        y: y - (y % 20),
+      };
 
-    if (event.key === 'a') {
-      this.store.dispatch(new TurnLeft(this.clientId))
-    }
+      socket.emit(Events.SAVE, {
+        id: socket.id,
+        direction: Direction.TOP,
+        position
+      });
+
+      socket.on(Events.SYNCHRONIZE, (tanks: Tank[]) => {
+        console.log(`${Events.SYNCHRONIZE} event!`);
+        this.store.dispatch(tanks.map((tank) => new SetTank(tank)));
+      })
+    });
   }
 }

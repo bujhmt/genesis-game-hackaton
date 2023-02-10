@@ -16,7 +16,6 @@ import {TanksState} from './state/tanks.state';
     AppComponent,
     FieldComponent,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
