@@ -1,5 +1,23 @@
 import {Tank} from '@game/models';
 
+export class SetTank {
+  static type = '[Tanks] MoveForward';
+
+  constructor(
+    public readonly tank: Tank,
+  ) {
+  }
+}
+
+export class RemoveTank {
+  static type = '[Tanks] RemoveTank';
+
+  constructor(
+    public readonly tank: Tank,
+  ) {
+  }
+}
+
 export class MoveForward {
   static type = '[Tanks] MoveForward';
 

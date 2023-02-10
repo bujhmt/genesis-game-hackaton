@@ -7,5 +7,5 @@ import {Tank} from '@game/models';
   styleUrls: ['./field.component.scss'],
 })
 export class FieldComponent implements OnInit, OnDestroy {
-  @Input() tanks: Tank[] = [];
+
 }
