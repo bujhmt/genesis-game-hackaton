@@ -1,4 +1,5 @@
 <main class="field">
+  <span class="seconds">Next tick in {{tickIntervals - intervalCounter}} ...</span>
   <div
     *ngFor="let tank of tanks$ | async"
     [ngStyle]="{
@@ -8,6 +9,5 @@
     }"
     class="tank"
   >
-    {{tank.direction}}
   </div>
 </main>

@@ -11,5 +11,11 @@
   width      : 20px;
   height     : 20px;
   background : white;
-  border-top: 5px solid yellow;
+  border-top : 5px solid yellow;
+}
+
+.seconds {
+  position : absolute;
+  left     : 45%;
+  top      : 20px;
 }

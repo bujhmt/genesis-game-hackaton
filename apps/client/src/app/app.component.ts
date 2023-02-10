@@ -1,7 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {MoveBack, MoveForward, SetTank, TurnLeft, TurnRight} from './state/tanks.actions';
-import {Direction} from '@game/models';
+import {MoveBack, MoveForward, TurnLeft, TurnRight} from './state/tanks.actions';
 
 @Component({
   selector: 'game-root',
@@ -17,14 +16,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new SetTank({
-      id: this.clientId,
-      position: {
-        y: 2,
-        x: 2,
-      },
-      direction: Direction.TOP,
-    }))
   }
 
   @HostListener('document:keypress', ['$event'])
