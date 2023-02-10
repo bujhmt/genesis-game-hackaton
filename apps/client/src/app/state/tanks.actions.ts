@@ -1,5 +1,12 @@
 import {Tank} from '@game/models';
 
+export class AbstractAction {
+  constructor(
+    public readonly id: string,
+  ) {
+  }
+}
+
 export class SetTank {
   static type = '[Tanks] SetTank';
 
@@ -9,7 +16,7 @@ export class SetTank {
   }
 }
 
-export class RemoveTank {
+export class RemoveTank  {
   static type = '[Tanks] RemoveTank';
 
   constructor(
@@ -18,38 +25,19 @@ export class RemoveTank {
   }
 }
 
-export class MoveForward {
+export class MoveForward extends AbstractAction {
   static type = '[Tanks] MoveForward';
-
-  constructor(
-    public readonly id: string,
-  ) {
-  }
 }
 
-export class MoveBack {
+export class MoveBack extends AbstractAction {
   static type = '[Tanks] MoveBack';
-
-  constructor(
-    public readonly id: string,
-  ) {
-  }
 }
 
-export class TurnRight {
+export class TurnRight extends AbstractAction {
   static type = '[Tanks] TurnRight';
-
-  constructor(
-    public readonly id: string,
-  ) {
-  }
 }
 
-export class TurnLeft {
+export class TurnLeft extends AbstractAction {
   static type = '[Tanks] TurnLeft';
 
-  constructor(
-    public readonly id: string,
-  ) {
-  }
 }

@@ -1,8 +1,11 @@
 .field {
-  height           : 100vh;
+  height           : 100%;
   width            : 100vw;
   border           : 3px solid black;
   position         : relative;
+  &:host {
+    height: 100%;
+  }
   background-image : url("/assets/img/field.png");
   background-size  : 20px;
 }

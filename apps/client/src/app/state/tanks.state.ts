@@ -1,4 +1,4 @@
-import {Direction, Tank} from '@game/models';
+import {Direction, Position, Tank} from '@game/models';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {MoveBack, MoveForward, RemoveTank, SetTank, TurnLeft, TurnRight} from './tanks.actions';
 import {Injectable} from '@angular/core';
@@ -10,7 +10,8 @@ interface TanksStateModel {
 @State<TanksStateModel>({
   name: 'tanks',
   defaults: {
-    tanksMap: {},
+    tanksMap: {
+    },
   }
 })
 @Injectable()
